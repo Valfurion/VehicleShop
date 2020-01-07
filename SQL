@@ -1,0 +1,28 @@
+--create schema vehicle;
+--create table vehicle.engine_type (engine_type_id bigserial primary key, title varchar (255) NOT NULL);
+--create table vehicle.engine (engine_id bigserial primary key, title varchar (255) NOT NULL, volume varchar (20) NOT NULL, engine_type_id bigserial);
+--create table vehicle.vehicle_type (vehicle_type_id bigserial primary key, title varchar (255) NOT NULL);
+--create table vehicle.vehicle (vehicle_id bigserial primary key, title varchar (255) NOT NULL, engine_id bigserial, vehicle_type_id bigserial);
+--***СЛИЯНИЕ ТАБЛИЦ Engine и Engine_type***
+--select e.engine_id, e.title as engine_title, e.volume as engine_volume, t.engine_type_id as engine_type_id
+--from vehicle.engine e
+--left join vehicle.engine_type t on e.engine_type_id=t.engine_type_id
+--***СЛИЯНИЕ ТАБЛИЦ Vehicle и Vehicle_type***
+--select v.vehicle_id, v.title as vehicle_title, e.engine_id as engine_id, t.vehicle_type_id as vehicle_type_id
+--from vehicle.vehicle v
+--left join vehicle.engine e on v.engine_id=e.engine_id
+--left join vehicle.vehicle_type t on v.vehicle_type_id=t.vehicle_type_id
+-- ||
+-- || *** Проверка SQL  ***
+-- \/
+--insert into vehicle.engine_type (title) values ('Gasoline')
+--select * from vehicle.engine_type
+
+--insert into vehicle.engine (title, volume, engine_type_id) values ('zmz415', '2,2', 3)
+--select * from vehicle.engine
+
+--insert into vehicle.vehicle_type (title) values ('LightCar')
+--select * from vehicle.vehicle_type
+
+--insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('UAZ_patriot', 1, 1)
+--select * from vehicle.vehicle
