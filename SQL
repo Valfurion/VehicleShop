@@ -1,34 +1,75 @@
 --create schema vehicle;
 --create table vehicle.engine_type (engine_type_id bigserial primary key, title varchar (255) NOT NULL);
---create table vehicle.engine (engine_id bigserial primary key, title varchar (255) NOT NULL, volume varchar (20) NOT NULL, engine_type_id bigserial);
+--create table vehicle.engine (engine_id bigserial primary key, title varchar (255) NOT NULL, volume varchar (20) NOT NULL, engine_type_id bigserial, engine_type_title varchar (255));
 --create table vehicle.vehicle_type (vehicle_type_id bigserial primary key, title varchar (255) NOT NULL);
 --create table vehicle.vehicle (vehicle_id bigserial primary key, title varchar (255) NOT NULL, engine_id bigserial, vehicle_type_id bigserial);
 
---***СЛИЯНИЕ ТАБЛИЦ Engine и Engine_type***
---select e.engine_id, e.title as engine_title, e.volume as engine_volume, t.engine_type_id as engine_type_id
+--***выборка Engine с engine_title, volume, engine_type_id, engine_type_title***
+--select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title
 --from vehicle.engine e
---left join vehicle.engine_type t on e.engine_type_id=t.engine_type_id
+--left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id
+
+--***выборка Engine по id***
+--select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title
+--from vehicle.engine e
+--left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id
+--where e.engine_id = 3
 
 
---***СЛИЯНИЕ ТАБЛИЦ Vehicle и Vehicle_type***
---select v.vehicle_id, v.title as vehicle_title, e.engine_id as engine_id, t.vehicle_type_id as vehicle_type_id
+--***выборка vehicle с vehicle_type_title,engine_type_title, engine_title, volume, по vehicle_id***--
+--select v.vehicle_id, v.title as vehicle_title, vt.vehicle_type_id, vt.vehicle_type_title, e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title
+--from vehicle.vehicle v
+--left join vehicle.vehicle_type vt on v.vehicle_type_id = vt.vehicle_type_id
+--left join vehicle.engine e on v.engine_id = e.engine_id
+--left join vehicle.engine_type et on e.engine_type_id = et.engine_type_id;
+
+--***выборка всех vehicle с engine_type_title***--
+--select v.vehicle_id, v.title as vehicle_title, et.engine_type_id, et.engine_type_title
 --from vehicle.vehicle v
 --left join vehicle.engine e on v.engine_id=e.engine_id
---left join vehicle.vehicle_type t on v.vehicle_type_id=t.vehicle_type_id
+--left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id
 
+---***Выборка vehicle с engine_type_title по vehicle_id***---
+--select v.vehicle_id, v.title as vehicle_title,et.engine_type_id, et.engine_type_title
+--from vehicle.vehicle v
+--left join vehicle.engine e on v.engine_id=e.engine_id
+--left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id
+--where v.vehicle_id = ?
 
 -- ||
 -- || *** Проверка SQL  ***
 -- \/
---insert into vehicle.engine_type (engine_type_title) values ('Gas engine')
---select * from vehicle.engine_type
 
---insert into vehicle.engine (title, volume, engine_type_id) values ('zmz415', '2,2', 3);
+---***добавление типов двигателя***---
+--insert into vehicle.engine_type (engine_type_id, engine_type_title) values ('Diesel');
+--insert into vehicle.engine_type (engine_type_id, engine_type_title) values ('Gasoline');
+--insert into vehicle.engine_type (engine_type_id, engine_type_title) values ('Hybrid');
+--insert into vehicle.engine_type (engine_type_id, engine_type_title) values ('Electric engine');
+--insert into vehicle.engine_type (engine_type_title) values ('Gas engine');
+---***Выборка типов двигателей***---
+--select * from vehicle.engine_type
+----------------------------------------------------------------------------------------------
+
+---***Добавление двигателей***---
+--insert into vehicle.engine (title, volume, engine_type_id) values ('ЗМЗ 415', '2.2', 1);
+--insert into vehicle.engine (title, volume, engine_type_id) values ('ЯМЗ236', '11', 1);
+---***Выборка двигателей***---
 --select * from vehicle.engine
 
---insert into vehicle.vehicle_type (title) values ('LightCar')
+-----------------------------------------------------------------------------------------------
+
+---***Добавление типов автомобилей***---
+--insert into vehicle.vehicle_type (vehicle_type_title) values ('SUV');
+--insert into vehicle.vehicle_type (vehicle_type_title) values ('LightCar');
+--insert into vehicle.vehicle_type (vehicle_type_title) values ('Truck');
+---***Выборка типов автомобилей***---
 --select * from vehicle.vehicle_type
 
---insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('UAZ_patriot', 3, 1)
---select * from vehicle.vehicle where vehicle_id= 1
+-----------------------------------------------------------------------------------------------
+
+---***Добавление автомобилей***---
+--insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('УАЗ_Патриот', 3, 1);
+--insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('МАЗ', 6, 3);
+---***Выборка всех автомобилей***---
+--select * from vehicle.vehicle
 

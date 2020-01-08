@@ -22,15 +22,21 @@ public class EngineRepository {
 
     }
 
+    public Engine getById(Long id) {
+        String sql = "select * from vehicle.engine where engine_id =" + id;
+        return jdbcTemplate.queryForObject(sql, new EngineMapper());
+
+    }
+
     private class EngineMapper implements RowMapper<Engine> {
 
         @Override
         public Engine mapRow(ResultSet resultSet, int i) throws SQLException {
             Engine engine = new Engine();
-            engine.setEngineId(resultSet.getLong("Engine_id"));
+            engine.setEngineId(resultSet.getLong("engine_id"));
             engine.setTitle(resultSet.getString("title"));
             engine.setVolume(resultSet.getString("volume"));
-            engine.setEngineTypeId(resultSet.getLong("Engine_Type_Id"));
+            engine.setEngineTypeId(resultSet.getLong("engine_type_id"));
             return engine;
         }
     }

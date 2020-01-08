@@ -1,10 +1,10 @@
 package org.VehicleShop.entity;
 
 public class Engine {
-private  Long engineId;
-private String title;
-private String volume;
-private Long engineTypeId;
+    private Long engineId;
+    private String title;
+    private String volume;
+    private Long engineTypeId;
 
     public Long getEngineId() {
         return engineId;

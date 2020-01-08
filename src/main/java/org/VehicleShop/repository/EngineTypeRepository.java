@@ -22,13 +22,12 @@ public class EngineTypeRepository {
     }
 
 
-
     private class EngineTypeMapper implements RowMapper<EngineType> {
 
         @Override
         public EngineType mapRow(ResultSet resultSet, int i) throws SQLException {
             EngineType engineType = new EngineType();
-            engineType.setEngineTypeId(resultSet.getLong("Engine_type_id"));
+            engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
             engineType.setTitle(resultSet.getString("title"));
             return engineType;
         }

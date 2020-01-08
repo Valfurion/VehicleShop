@@ -15,7 +15,7 @@ public class EngineTypeController {
     private EngineTypeRepository engineTypeRepository;
 
     @GetMapping("/{id}")
-    public EngineType engineTypes(@PathVariable Long id){
+    public EngineType engineTypes(@PathVariable Long id) {
         return engineTypeRepository.getById(id);
     }
 }
