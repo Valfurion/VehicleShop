@@ -1,8 +1,8 @@
 --create schema vehicle;
 --create table vehicle.engine_type (engine_type_id bigserial primary key, engine_type_title varchar (255) NOT NULL);
---create table vehicle.engine (engine_id bigserial primary key, title varchar (255) NOT NULL, volume varchar (20) NOT NULL, engine_type_id bigserial);
+--create table vehicle.engine (engine_id bigserial primary key, title varchar (255) NOT NULL, volume varchar (20) NOT NULL, engine_type_id bigint NOT NULL);
 --create table vehicle.vehicle_type (vehicle_type_id bigserial primary key, vehicle_type_title varchar (255) NOT NULL);
---create table vehicle.vehicle (vehicle_id bigserial primary key, title varchar (255) NOT NULL, engine_id bigserial, vehicle_type_id bigserial);
+--create table vehicle.vehicle (vehicle_id bigserial primary key, title varchar (255) NOT NULL, engine_id bigint, vehicle_type_id bigint NOT NULL);
 
 --***выборка Engine с engine_title, volume, engine_type_id, engine_type_title***
 --select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title
