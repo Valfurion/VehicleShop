@@ -4,10 +4,7 @@ import org.VehicleShop.entity.Engine;
 import org.VehicleShop.repository.EngineRepository;
 import org.VehicleShop.repository.EngineTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,10 @@ public class EngineController {
     public Engine engine(@PathVariable Long id) {
         return engineRepository.getById(id);
     }
+
+    /*@PutMapping("/change/{id}")
+    public Engine engine(@PathVariable Long id, @RequestBody Engine engine) {
+        return engineRepository.changeEngine(engine);
+    }
+*/
 }

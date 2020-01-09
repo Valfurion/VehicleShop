@@ -42,6 +42,10 @@
 --insert into vehicle.engine_type (engine_type_title) values ('Hybrid');
 --insert into vehicle.engine_type (engine_type_title) values ('Electric engine');
 --insert into vehicle.engine_type (engine_type_title) values ('Gas engine');
+
+---***изменение типа двигателя***---
+--update vehicle.engine_type set engine_type_title=? where engine_type_id =?
+
 ---***Выборка типов двигателей***---
 --select * from vehicle.engine_type
 ----------------------------------------------------------------------------------------------
@@ -49,6 +53,10 @@
 ---***Добавление двигателей***---
 --insert into vehicle.engine (title, volume, engine_type_id) values ('ЗМЗ 415', '2.2', 1);
 --insert into vehicle.engine (title, volume, engine_type_id) values ('ЯМЗ236', '11', 1);
+
+---***изменение двигателя***---
+--update vehicle.engine set title='?', volume=?, engine_type_id =? where engine_id=?
+
 ---***Выборка двигателей***---
 --select * from vehicle.engine
 
@@ -58,6 +66,10 @@
 --insert into vehicle.vehicle_type (vehicle_type_title) values ('SUV');
 --insert into vehicle.vehicle_type (vehicle_type_title) values ('LightCar');
 --insert into vehicle.vehicle_type (vehicle_type_title) values ('Truck');
+
+---***изменение типа автомобиля***---
+--update vehicle.vehicle_type set vehicle_type_title='?' where vehicle_type_id=?
+
 ---***Выборка типов автомобилей***---
 --select * from vehicle.vehicle_type
 
@@ -66,6 +78,10 @@
 ---***Добавление автомобилей***---
 --insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('УАЗ_Патриот', 3, 1);
 --insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('МАЗ', 6, 3);
+
+---***изменение автомобиля***---
+--update vehicle.vehicle set title='?', engine_id=?, vehicle_type_id=? where vehicle_id=?
+
 ---***Выборка всех автомобилей***---
 --select * from vehicle.vehicle
 

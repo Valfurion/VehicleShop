@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class EngineTypeRepository {
@@ -19,6 +20,11 @@ public class EngineTypeRepository {
         String sql = "select * from vehicle.engine_type where engine_type_id = " + id;
         System.out.println(sql);
         return jdbcTemplate.queryForObject(sql, new EngineTypeMapper());
+    }
+
+    public List<EngineType> getAllEngineType() {
+        String sql = "select * from vehicle.engine_type";
+        return jdbcTemplate.query(sql, new EngineTypeMapper());
     }
 
 

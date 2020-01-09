@@ -4,7 +4,7 @@ public class Engine {
     private Long engineId;
     private String title;
     private String volume;
-
+    private EngineType engineType;
 
     public EngineType getEngineType() {
         return engineType;
@@ -13,8 +13,6 @@ public class Engine {
     public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
     }
-
-    private EngineType engineType;
 
     public Long getEngineId() {
         return engineId;
