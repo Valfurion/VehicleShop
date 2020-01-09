@@ -17,11 +17,12 @@ public class EngineTypeController {
     private EngineTypeRepository engineTypeRepository;
 
     @GetMapping("/{id}")
-    public EngineType engineTypes(@PathVariable Long id) {
-        return engineTypeRepository.getById(id);
+    public EngineType getById(@PathVariable Long id) {
+        return engineTypeRepository.findById(id);
     }
+
     @GetMapping
-    public List<EngineType> engineTypes(){
-        return engineTypeRepository.getAllEngineType();
+    public List<EngineType> getAll() {
+        return engineTypeRepository.findAll();
     }
 }

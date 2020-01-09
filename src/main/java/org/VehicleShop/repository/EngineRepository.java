@@ -18,7 +18,7 @@ public class EngineRepository {
     private JdbcTemplate jdbcTemplate;
     private EngineType EngineType;
 
-    public List<Engine> getAll() {
+    public List<Engine> findAll() {
         String sql = "select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title\n" +
                 "from vehicle.engine e\n" +
                 "left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id";
@@ -26,7 +26,7 @@ public class EngineRepository {
 
     }
 
-    public Engine getById(Long id) {
+    public Engine findById(Long id) {
         String sql = "select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title\n" +
                 "from vehicle.engine e\n" +
                 "left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id\n" +

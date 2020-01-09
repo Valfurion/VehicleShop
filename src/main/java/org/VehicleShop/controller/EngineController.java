@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/engine")
+@RequestMapping("/engines")
 public class EngineController {
     @Autowired
     private EngineRepository engineRepository;
     private EngineTypeRepository engineTypeRepository;
 
     @GetMapping
-    public List<Engine> engines() {
-        return engineRepository.getAll();
+    public List<Engine> getAll() {
+        return engineRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Engine engine(@PathVariable Long id) {
-        return engineRepository.getById(id);
+    public Engine getById(@PathVariable Long id) {
+        return engineRepository.findById(id);
     }
 
     /*@PutMapping("/change/{id}")
-    public Engine engine(@PathVariable Long id, @RequestBody Engine engine) {
+    public Engine putEngine(@PathVariable Long id, @RequestBody Engine engine) {
         return engineRepository.changeEngine(engine);
     }
 */

@@ -16,13 +16,13 @@ public class EngineTypeRepository {
     private JdbcTemplate jdbcTemplate;
 
 
-    public EngineType getById(Long id) {
+    public EngineType findById(Long id) {
         String sql = "select * from vehicle.engine_type where engine_type_id = " + id;
         System.out.println(sql);
         return jdbcTemplate.queryForObject(sql, new EngineTypeMapper());
     }
 
-    public List<EngineType> getAllEngineType() {
+    public List<EngineType> findAll() {
         String sql = "select * from vehicle.engine_type";
         return jdbcTemplate.query(sql, new EngineTypeMapper());
     }
