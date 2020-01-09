@@ -36,6 +36,12 @@
 --left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id
 --where v.vehicle_id = ?
 
+--***выборка всех vehicle с vehicle_type***--
+--select v.vehicle_id, v.title as vehicle_title, vt.vehicle_type_id, vt.vehicle_type_title
+--from vehicle.vehicle v
+--left join vehicle.vehicle_type vt on v.vehicle_type_id=vt.vehicle_type_id
+
+
 -- ||
 -- || *** Проверка SQL  ***
 -- \/

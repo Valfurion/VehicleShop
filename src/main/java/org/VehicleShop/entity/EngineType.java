@@ -2,7 +2,7 @@ package org.VehicleShop.entity;
 
 public class EngineType {
     private Long engineTypeId;
-    private String title;
+    private String engineTypeTitle;
 
     public Long getEngineTypeId() {
         return engineTypeId;
@@ -12,11 +12,11 @@ public class EngineType {
         this.engineTypeId = engineTypeId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getEngineTypeTitle() {
+        return engineTypeTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setEngineTypeTitle(String engineTypeTitle) {
+        this.engineTypeTitle = engineTypeTitle;
     }
 }

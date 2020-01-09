@@ -28,7 +28,7 @@ public class EngineTypeRepository {
         public EngineType mapRow(ResultSet resultSet, int i) throws SQLException {
             EngineType engineType = new EngineType();
             engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
-            engineType.setTitle(resultSet.getString("title"));
+            engineType.setEngineTypeTitle(resultSet.getString("engine_type_title"));
             return engineType;
         }
     }

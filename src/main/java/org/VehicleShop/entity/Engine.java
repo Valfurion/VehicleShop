@@ -4,7 +4,17 @@ public class Engine {
     private Long engineId;
     private String title;
     private String volume;
-    private Long engineTypeId;
+
+
+    public EngineType getEngineType() {
+        return engineType;
+    }
+
+    public void setEngineType(EngineType engineType) {
+        this.engineType = engineType;
+    }
+
+    private EngineType engineType;
 
     public Long getEngineId() {
         return engineId;
@@ -30,11 +40,5 @@ public class Engine {
         this.volume = volume;
     }
 
-    public Long getEngineTypeId() {
-        return engineTypeId;
-    }
 
-    public void setEngineTypeId(Long engineTypeId) {
-        this.engineTypeId = engineTypeId;
-    }
 }

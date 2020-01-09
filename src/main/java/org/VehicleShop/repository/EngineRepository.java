@@ -24,6 +24,7 @@ public class EngineRepository {
 
     public Engine getById(Long id) {
         String sql = "select * from vehicle.engine where engine_id =" + id;
+
         return jdbcTemplate.queryForObject(sql, new EngineMapper());
 
     }
@@ -36,9 +37,13 @@ public class EngineRepository {
             engine.setEngineId(resultSet.getLong("engine_id"));
             engine.setTitle(resultSet.getString("title"));
             engine.setVolume(resultSet.getString("volume"));
-            engine.setEngineTypeId(resultSet.getLong("engine_type_id"));
+            EngineType engineType = new EngineType();
+            engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
+            engine.setEngineType(engineType);
+
             return engine;
         }
+
     }
 
 }
