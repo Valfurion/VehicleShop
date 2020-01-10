@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,6 +29,17 @@ public class VehicleRepository {
         return jdbcTemplate.query(sql, new VehicleMapper());
 
     }
+
+    public Vehicle findById(Long id) {
+        String sql = "select v.vehicle_id, v.title , vt.vehicle_type_id, vt.vehicle_type_title, e.engine_id, e.title as engine_title, e.volume, et.engine_type_id, et.engine_type_title\n" +
+                "from vehicle.vehicle v\n" +
+                "left join vehicle.vehicle_type vt on v.vehicle_type_id=vt.vehicle_type_id\n" +
+                "left join vehicle.engine e on v.engine_id=e.engine_id\n" +
+                "left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id\n" +
+                "where v.vehicle_id = " + id;
+        return jdbcTemplate.queryForObject(sql, new VehicleMapper());
+    }
+
 
     private class VehicleMapper implements RowMapper<Vehicle> {
 
