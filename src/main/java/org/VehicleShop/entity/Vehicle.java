@@ -4,7 +4,7 @@ package org.VehicleShop.entity;
 public class Vehicle {
 
     private Long vehicleId;
-    private String vehicleTitle;
+    private String title;
     private Engine engineId;
     private VehicleType vehicleTypeId;
 
@@ -16,12 +16,12 @@ public class Vehicle {
         this.vehicleId = vehicleId;
     }
 
-    public String getVehicleTitle() {
-        return vehicleTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setVehicleTitle(String vehicleTitle) {
-        this.vehicleTitle = vehicleTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Engine getEngineId() {

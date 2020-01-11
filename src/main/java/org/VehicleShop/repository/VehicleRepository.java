@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -47,7 +46,7 @@ public class VehicleRepository {
         public Vehicle mapRow(ResultSet resultSet, int i) throws SQLException {
             Vehicle vehicle = new Vehicle();
             vehicle.setVehicleId(resultSet.getLong("vehicle_Id"));
-            vehicle.setVehicleTitle(resultSet.getString("title"));
+            vehicle.setTitle(resultSet.getString("title"));
             Engine engine = new Engine();
             engine.setEngineId(resultSet.getLong("engine_id"));
             engine.setTitle(resultSet.getString("engine_title"));
