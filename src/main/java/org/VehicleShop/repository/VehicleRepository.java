@@ -60,7 +60,7 @@ public class VehicleRepository {
             VehicleType vehicleType = new VehicleType();
             vehicleType.setVehicleTypeId(resultSet.getLong("vehicle_type_id"));
             vehicleType.setVehicleTypeTitle(resultSet.getString("vehicle_type_title"));
-            vehicle.setVehicleTypeId(vehicleType);
+            vehicle.setVehicleType(vehicleType);
             return vehicle;
         }
     }
