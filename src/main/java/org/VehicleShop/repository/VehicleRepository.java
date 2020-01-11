@@ -55,7 +55,7 @@ public class VehicleRepository {
             engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
             engineType.setEngineTypeTitle(resultSet.getString("engine_type_title"));
             engine.setEngineType(engineType);
-            vehicle.setEngineId(engine);
+            vehicle.setEngine(engine);
 
             VehicleType vehicleType = new VehicleType();
             vehicleType.setVehicleTypeId(resultSet.getLong("vehicle_type_id"));

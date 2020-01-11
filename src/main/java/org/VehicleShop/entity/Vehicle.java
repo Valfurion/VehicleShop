@@ -5,7 +5,7 @@ public class Vehicle {
 
     private Long vehicleId;
     private String title;
-    private Engine engineId;
+    private Engine engine;
     private VehicleType vehicleType;
 
     public Long getVehicleId() {
@@ -24,12 +24,12 @@ public class Vehicle {
         this.title = title;
     }
 
-    public Engine getEngineId() {
-        return engineId;
+    public Engine getEngine() {
+        return engine;
     }
 
-    public void setEngineId(Engine engineId) {
-        this.engineId = engineId;
+    public void setEngine(Engine engine) {
+        this.engine = engine;
     }
 
     public VehicleType getVehicleType() {
