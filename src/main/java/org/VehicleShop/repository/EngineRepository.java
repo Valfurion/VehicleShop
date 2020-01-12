@@ -5,11 +5,14 @@ import org.VehicleShop.entity.EngineType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -36,6 +39,21 @@ public class EngineRepository {
 
     }
 
+    public Engine createEngine(Engine engine) {
+        String sql = "insert into vehicle.engine (title, volume, engine_type_id) values (?, ?, ?)";
+        KeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, engine.getTitle());
+            ps.setString(2, engine.getVolume());
+            ps.setLong(3, engine.getEngineType().getEngineTypeId());
+            return ps;
+        }, holder);
+        long engineId = (long) holder.getKeys().get("engine_id");
+        engine.setEngineId(engineId);
+        return engine;
+    }
+
     /*public Engine changeEngine(Engine engine) {
         String sql = "update vehicle.engine set title='?', volume=?, engine_type_id =? where engine_id=?";
         System.out.println(sql);
@@ -54,22 +72,22 @@ public class EngineRepository {
 
      */
 
-    private class EngineMapper implements RowMapper<Engine> {
+        private class EngineMapper implements RowMapper<Engine> {
 
-        @Override
-        public Engine mapRow(ResultSet resultSet, int i) throws SQLException {
-            Engine engine = new Engine();
-            engine.setEngineId(resultSet.getLong("engine_id"));
-            engine.setTitle(resultSet.getString("engine_title"));
-            engine.setVolume(resultSet.getString("engine_volume"));
-            EngineType engineType = new EngineType();
-            engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
-            engineType.setEngineTypeTitle(resultSet.getString("engine_type_title"));
-            engine.setEngineType(engineType);
-            return engine;
+            @Override
+            public Engine mapRow(ResultSet resultSet, int i) throws SQLException {
+                Engine engine = new Engine();
+                engine.setEngineId(resultSet.getLong("engine_id"));
+                engine.setTitle(resultSet.getString("engine_title"));
+                engine.setVolume(resultSet.getString("engine_volume"));
+                EngineType engineType = new EngineType();
+                engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
+                engineType.setEngineTypeTitle(resultSet.getString("engine_type_title"));
+                engine.setEngineType(engineType);
+                return engine;
+            }
+
         }
 
     }
-
-}
 
