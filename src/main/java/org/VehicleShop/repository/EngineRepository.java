@@ -73,7 +73,7 @@ public class EngineRepository {
     }
 
      */
-    private EngineType GetOrCreateEngineType(Engine engine) {
+    private EngineType getOrCreateEngineType(Engine engine) {
         EngineType engineType = engine.getEngineType();
         if (engineType.getEngineTypeTitle() != null) {
             try {
