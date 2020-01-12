@@ -7,10 +7,14 @@ import org.VehicleShop.entity.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -37,6 +41,21 @@ public class VehicleRepository {
                 "left join vehicle.engine_type et on e.engine_type_id=et.engine_type_id\n" +
                 "where v.vehicle_id = " + id;
         return jdbcTemplate.queryForObject(sql, new VehicleMapper());
+    }
+
+    public Vehicle createVehicle(Vehicle vehicle) {
+        String sql = "insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values (?, ?, ?)";
+        KeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, vehicle.getTitle());
+            ps.setLong(2, vehicle.getEngine().getEngineId());
+            ps.setLong(3, vehicle.getVehicleType().getVehicleTypeId());
+            return ps;
+        }, holder);
+        long vehicleId = (long) holder.getKeys().get("vehicle_id");
+        vehicle.setVehicleId(vehicleId);
+        return vehicle;
     }
 
 
