@@ -4,10 +4,14 @@ import org.VehicleShop.entity.EngineType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -27,6 +31,23 @@ public class EngineTypeRepository {
         return jdbcTemplate.query(sql, new EngineTypeMapper());
     }
 
+    public EngineType createEngineType(EngineType engineType) {
+        String sql = "insert into vehicle.engine_type (engine_type_title) values (?)";
+        KeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, engineType.getEngineTypeTitle());
+            return ps;
+        }, holder);
+        long engineTypeId = (long) holder.getKeys().get("engine_type_id");
+        engineType.setEngineTypeId(engineTypeId);
+        return engineType;
+    }
+
+    public EngineType findByTitle(String engineTypeTitle) {
+        String sql = "select * from vehicle.engine_type where engine_type_title =" + engineTypeTitle;
+        return jdbcTemplate.queryForObject(sql, new EngineTypeMapper());
+    }
 
     private class EngineTypeMapper implements RowMapper<EngineType> {
 

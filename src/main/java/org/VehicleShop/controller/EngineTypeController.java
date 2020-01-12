@@ -3,10 +3,7 @@ package org.VehicleShop.controller;
 import org.VehicleShop.entity.EngineType;
 import org.VehicleShop.repository.EngineTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,8 +18,14 @@ public class EngineTypeController {
         return engineTypeRepository.findById(id);
     }
 
+
     @GetMapping
     public List<EngineType> getAll() {
         return engineTypeRepository.findAll();
+    }
+
+    @PostMapping
+    public EngineType createEngineType(@RequestBody EngineType engineType) {
+        return engineTypeRepository.createEngineType(engineType);
     }
 }

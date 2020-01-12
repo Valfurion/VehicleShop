@@ -3,6 +3,7 @@ package org.VehicleShop.repository;
 import org.VehicleShop.entity.Engine;
 import org.VehicleShop.entity.EngineType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -20,6 +21,7 @@ public class EngineRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private EngineType EngineType;
+    private EngineTypeRepository engineTypeRepository;
 
     public List<Engine> findAll() {
         String sql = "select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title\n" +
@@ -71,23 +73,34 @@ public class EngineRepository {
     }
 
      */
-
-        private class EngineMapper implements RowMapper<Engine> {
-
-            @Override
-            public Engine mapRow(ResultSet resultSet, int i) throws SQLException {
-                Engine engine = new Engine();
-                engine.setEngineId(resultSet.getLong("engine_id"));
-                engine.setTitle(resultSet.getString("engine_title"));
-                engine.setVolume(resultSet.getString("engine_volume"));
-                EngineType engineType = new EngineType();
-                engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
-                engineType.setEngineTypeTitle(resultSet.getString("engine_type_title"));
-                engine.setEngineType(engineType);
-                return engine;
+    private EngineType GetOrCreateEngineType(Engine engine) {
+        EngineType engineType = engine.getEngineType();
+        if (engineType.getEngineTypeTitle() != null) {
+            try {
+                engineType = engineTypeRepository.findByTitle(engineType.getEngineTypeTitle());
+            } catch (EmptyResultDataAccessException e) {
+                engineType = engineTypeRepository.createEngineType(engineType);
             }
+        }
+        return engineType;
+    }
 
+    private class EngineMapper implements RowMapper<Engine> {
+
+        @Override
+        public Engine mapRow(ResultSet resultSet, int i) throws SQLException {
+            Engine engine = new Engine();
+            engine.setEngineId(resultSet.getLong("engine_id"));
+            engine.setTitle(resultSet.getString("engine_title"));
+            engine.setVolume(resultSet.getString("engine_volume"));
+            EngineType engineType = new EngineType();
+            engineType.setEngineTypeId(resultSet.getLong("engine_type_id"));
+            engineType.setEngineTypeTitle(resultSet.getString("engine_type_title"));
+            engine.setEngineType(engineType);
+            return engine;
         }
 
     }
 
+
+}
