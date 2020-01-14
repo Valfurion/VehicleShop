@@ -3,13 +3,17 @@ package org.VehicleShop.repository;
 import org.VehicleShop.entity.Engine;
 import org.VehicleShop.entity.EngineType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -17,6 +21,7 @@ public class EngineRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     private EngineType EngineType;
+    private EngineTypeRepository engineTypeRepository;
 
     public List<Engine> findAll() {
         String sql = "select e.engine_id, e.title as engine_title, e.volume as engine_volume, et.engine_type_id, et.engine_type_title\n" +
@@ -36,6 +41,21 @@ public class EngineRepository {
 
     }
 
+    public Engine createEngine(Engine engine) {
+        String sql = "insert into vehicle.engine (title, volume, engine_type_id) values (?, ?, ?)";
+        KeyHolder holder = new GeneratedKeyHolder();
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, engine.getTitle());
+            ps.setString(2, engine.getVolume());
+            ps.setLong(3, engine.getEngineType().getEngineTypeId());
+            return ps;
+        }, holder);
+        long engineId = (long) holder.getKeys().get("engine_id");
+        engine.setEngineId(engineId);
+        return engine;
+    }
+
     /*public Engine changeEngine(Engine engine) {
         String sql = "update vehicle.engine set title='?', volume=?, engine_type_id =? where engine_id=?";
         System.out.println(sql);
@@ -53,6 +73,17 @@ public class EngineRepository {
     }
 
      */
+    private EngineType getOrCreateEngineType(Engine engine) {
+        EngineType engineType = engine.getEngineType();
+        if (engineType.getEngineTypeTitle() != null) {
+            try {
+                engineType = engineTypeRepository.findByTitle(engineType.getEngineTypeTitle());
+            } catch (EmptyResultDataAccessException e) {
+                engineType = engineTypeRepository.createEngineType(engineType);
+            }
+        }
+        return engineType;
+    }
 
     private class EngineMapper implements RowMapper<Engine> {
 
@@ -71,5 +102,5 @@ public class EngineRepository {
 
     }
 
-}
 
+}

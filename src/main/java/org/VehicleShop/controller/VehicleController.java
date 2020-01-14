@@ -3,10 +3,7 @@ package org.VehicleShop.controller;
 import org.VehicleShop.entity.Vehicle;
 import org.VehicleShop.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +22,11 @@ public class VehicleController {
     @GetMapping("/{id}")
     public Vehicle getById(@PathVariable Long id) {
         return vehicleRepository.findById(id);
+    }
+
+    @PostMapping
+    public Vehicle createVehicle(@RequestBody Vehicle vehicle) {
+        return vehicleRepository.createVehicle(vehicle);
     }
 
 }

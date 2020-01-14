@@ -25,9 +25,16 @@ public class EngineController {
         return engineRepository.findById(id);
     }
 
-    /*@PutMapping("/change/{id}")
+    @PostMapping
+    public Engine createEngine(@RequestBody Engine engine) {
+        return engineRepository.createEngine(engine);
+
+    }
+
+   /* @PutMapping("/change/{id}")
     public Engine putEngine(@PathVariable Long id, @RequestBody Engine engine) {
         return engineRepository.changeEngine(engine);
     }
-*/
+    */
+
 }

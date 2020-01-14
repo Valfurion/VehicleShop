@@ -25,4 +25,9 @@ public class VehicleTypeController {
         return vehicleTypeRepository.findById(id);
     }
 
+    @PostMapping
+    public VehicleType createVehicleType(@RequestBody VehicleType vehicleType){
+        return vehicleTypeRepository.createVehicleType(vehicleType);
+    }
+
 }
