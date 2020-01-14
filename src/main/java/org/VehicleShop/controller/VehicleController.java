@@ -29,4 +29,10 @@ public class VehicleController {
         return vehicleRepository.createVehicle(vehicle);
     }
 
+    @PutMapping("/change/{id}")
+    public Vehicle changeVehicle(@PathVariable Long id, @RequestBody Vehicle vehicle) {
+        vehicle.setVehicleId(id);
+        return vehicleRepository.changeVehicle(vehicle);
+    }
+
 }
