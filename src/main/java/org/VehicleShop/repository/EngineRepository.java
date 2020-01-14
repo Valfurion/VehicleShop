@@ -56,10 +56,11 @@ public class EngineRepository {
         return engine;
     }
 
-    /*public Engine changeEngine(Engine engine) {
-        String sql = "update vehicle.engine set title='?', volume=?, engine_type_id =? where engine_id=?";
+    public Engine changeEngine(Engine engine) {
+        EngineType engineType = getOrCreateEngineType(engine);
+        engine.setEngineType(engineType);
+        String sql = "update vehicle.engine set title=?, volume=?, engine_type_id =? where engine_id=?";
         System.out.println(sql);
-        engine.setEngineType(EngineType);
         jdbcTemplate.update(psc -> {
             PreparedStatement ps = psc.prepareStatement(sql);
             ps.setString(1, engine.getTitle());
@@ -68,11 +69,10 @@ public class EngineRepository {
             ps.setLong(4, engine.getEngineId());
             return ps;
         });
-        return getById(engine.getEngineId());
+        return findById(engine.getEngineId());
 
     }
 
-     */
     private EngineType getOrCreateEngineType(Engine engine) {
         EngineType engineType = engine.getEngineType();
         if (engineType.getEngineTypeTitle() != null) {
