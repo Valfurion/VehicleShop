@@ -57,8 +57,6 @@ public class EngineRepository {
     }
 
     public Engine changeEngine(Engine engine) {
-        EngineType engineType = getOrCreateEngineType(engine);
-        engine.setEngineType(engineType);
         String sql = "update vehicle.engine set title=?, volume=?, engine_type_id =? where engine_id=?";
         System.out.println(sql);
         jdbcTemplate.update(psc -> {
@@ -69,11 +67,11 @@ public class EngineRepository {
             ps.setLong(4, engine.getEngineId());
             return ps;
         });
-        return findById(engine.getEngineId());
+        return engine;
 
     }
 
-    private EngineType getOrCreateEngineType(Engine engine) {
+    /*private EngineType getOrCreateEngineType(Engine engine) {
         EngineType engineType = engine.getEngineType();
         if (engineType.getEngineTypeTitle() != null) {
             try {
@@ -83,7 +81,7 @@ public class EngineRepository {
             }
         }
         return engineType;
-    }
+    }*/
 
     private class EngineMapper implements RowMapper<Engine> {
 
