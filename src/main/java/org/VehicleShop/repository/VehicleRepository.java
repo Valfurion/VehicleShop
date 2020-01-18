@@ -21,6 +21,8 @@ import java.util.List;
 public class VehicleRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private Engine engine;
+    private VehicleType vehicleType;
 
 
     public List<Vehicle> findAll() {
@@ -56,6 +58,19 @@ public class VehicleRepository {
         long vehicleId = (long) holder.getKeys().get("vehicle_id");
         vehicle.setVehicleId(vehicleId);
         return vehicle;
+    }
+
+    public Vehicle changeVehicle(Vehicle vehicle) {
+        String sql = "update vehicle.vehicle set title=?, engine_id=?, vehicle_type_id=? where vehicle_id=?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setString(1, vehicle.getTitle());
+            ps.setLong(2, vehicle.getEngine().getEngineId());
+            ps.setLong(3, vehicle.getVehicleType().getVehicleTypeId());
+            ps.setLong(4, vehicle.getVehicleId());
+            return ps;
+        });
+        return findById(vehicle.getVehicleId());
     }
 
 

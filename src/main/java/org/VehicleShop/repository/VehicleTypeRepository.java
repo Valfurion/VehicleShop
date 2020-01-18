@@ -26,22 +26,33 @@ public class VehicleTypeRepository {
     }
 
     public VehicleType findById(Long id) {
-        String sql = "select * from vehicle.vehicle_type where vehicle_type_id =" +id;
+        String sql = "select * from vehicle.vehicle_type where vehicle_type_id =" + id;
         return jdbcTemplate.queryForObject(sql, new VehicleTypeMapper());
     }
 
     public VehicleType createVehicleType(VehicleType vehicleType) {
         String sql = "insert into vehicle.vehicle_type (vehicle_type_title) values (?)";
         KeyHolder holder = new GeneratedKeyHolder();
-        jdbcTemplate.update(psc->{
+        jdbcTemplate.update(psc -> {
             PreparedStatement ps = psc.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1,vehicleType.getVehicleTypeTitle());
+            ps.setString(1, vehicleType.getVehicleTypeTitle());
             return ps;
         }, holder);
         long vehicleTypeId = (long) holder.getKeys().get("vehicle_type_id");
         vehicleType.setVehicleTypeId(vehicleTypeId);
         return vehicleType;
 
+    }
+
+    public VehicleType changeVehicleType(VehicleType vehicleType) {
+        String sql = "update vehicle.vehicle_type set vehicle_type_title=? where vehicle_type_id=?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setString(1, vehicleType.getVehicleTypeTitle());
+            ps.setLong(2, vehicleType.getVehicleTypeId());
+            return ps;
+        });
+        return findById(vehicleType.getVehicleTypeId());
     }
 
 

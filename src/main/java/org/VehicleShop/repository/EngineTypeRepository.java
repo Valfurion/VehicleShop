@@ -49,6 +49,17 @@ public class EngineTypeRepository {
         return jdbcTemplate.queryForObject(sql, new EngineTypeMapper());
     }
 
+    public EngineType changeEngineType(EngineType engineType) {
+        String sql = "update vehicle.engine_type set engine_type_title=? where engine_type_id =?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setString(1, engineType.getEngineTypeTitle());
+            ps.setLong(2, engineType.getEngineTypeId());
+            return ps;
+        });
+        return engineType;
+    }
+
     private class EngineTypeMapper implements RowMapper<EngineType> {
 
         @Override

@@ -55,7 +55,7 @@
 --insert into vehicle.engine (title, volume, engine_type_id) values ('ЯМЗ236', '11', 1);
 
 ---***изменение двигателя***---
---update vehicle.engine set title='?', volume=?, engine_type_id =? where engine_id=?
+--update vehicle.engine set title=?, volume=?, engine_type_id =? where engine_id=?
 
 ---***Выборка двигателей***---
 --select * from vehicle.engine
@@ -68,7 +68,7 @@
 --insert into vehicle.vehicle_type (vehicle_type_title) values ('Truck');
 
 ---***изменение типа автомобиля***---
---update vehicle.vehicle_type set vehicle_type_title='?' where vehicle_type_id=?
+--update vehicle.vehicle_type set vehicle_type_title=? where vehicle_type_id=?
 
 ---***Выборка типов автомобилей***---
 --select * from vehicle.vehicle_type
@@ -80,7 +80,7 @@
 --insert into vehicle.vehicle (title, engine_id, vehicle_type_id) values ('МАЗ', 6, 3);
 
 ---***изменение автомобиля***---
---update vehicle.vehicle set title='?', engine_id=?, vehicle_type_id=? where vehicle_id=?
+--update vehicle.vehicle set title=?, engine_id=?, vehicle_type_id=? where vehicle_id=?
 
 ---***Выборка всех автомобилей***---
 --select * from vehicle.vehicle

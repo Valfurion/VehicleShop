@@ -21,13 +21,19 @@ public class VehicleTypeController {
     }
 
     @GetMapping("/{id}")
-    public VehicleType getById(@PathVariable Long id){
+    public VehicleType getById(@PathVariable Long id) {
         return vehicleTypeRepository.findById(id);
     }
 
     @PostMapping
-    public VehicleType createVehicleType(@RequestBody VehicleType vehicleType){
+    public VehicleType createVehicleType(@RequestBody VehicleType vehicleType) {
         return vehicleTypeRepository.createVehicleType(vehicleType);
+    }
+
+    @PutMapping("/change/{id}")
+    public VehicleType changeVehicleType(@PathVariable Long id, @RequestBody VehicleType vehicleType) {
+        vehicleType.setVehicleTypeId(id);
+        return vehicleTypeRepository.changeVehicleType(vehicleType);
     }
 
 }

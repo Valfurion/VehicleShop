@@ -31,10 +31,10 @@ public class EngineController {
 
     }
 
-   /* @PutMapping("/change/{id}")
-    public Engine putEngine(@PathVariable Long id, @RequestBody Engine engine) {
+    @PutMapping("/change/{id}")
+    public Engine changeEngine(@PathVariable Long id, @RequestBody Engine engine) {
+        engine.setEngineId(id);
         return engineRepository.changeEngine(engine);
     }
-    */
 
 }
