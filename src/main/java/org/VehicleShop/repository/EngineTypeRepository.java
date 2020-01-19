@@ -2,6 +2,7 @@ package org.VehicleShop.repository;
 
 import org.VehicleShop.entity.EngineType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -58,6 +59,21 @@ public class EngineTypeRepository {
             return ps;
         });
         return engineType;
+    }
+
+    public Boolean deleteEngineType(Long id) {
+        String sql = "delete from vehicle.engine_type where engine_type_id = ?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setLong(1, id);
+            return ps;
+        });
+        try {
+            findById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return true;
+        }
+        return false;
     }
 
     private class EngineTypeMapper implements RowMapper<EngineType> {

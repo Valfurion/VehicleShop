@@ -38,7 +38,7 @@ public class EngineController {
     }
 
     @DeleteMapping("/{id}")
-    public Boolean deleteEngine( @PathVariable Long id){
+    public Boolean deleteEngine(@PathVariable Long id) {
         return engineRepository.deleteEngine(id);
     }
 
