@@ -37,4 +37,9 @@ public class EngineController {
         return engineRepository.changeEngine(engine);
     }
 
+    @DeleteMapping("/{id}")
+    public Boolean deleteEngine( @PathVariable Long id){
+        return engineRepository.deleteEngine(id);
+    }
+
 }
