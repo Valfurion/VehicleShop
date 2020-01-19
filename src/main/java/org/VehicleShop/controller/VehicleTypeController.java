@@ -36,4 +36,8 @@ public class VehicleTypeController {
         return vehicleTypeRepository.changeVehicleType(vehicleType);
     }
 
+    @DeleteMapping("/{id}")
+    public Boolean vehicleType(@PathVariable Long id) {
+        return vehicleTypeRepository.deleteVehicleType(id);
+    }
 }
