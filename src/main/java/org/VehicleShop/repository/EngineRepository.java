@@ -71,6 +71,21 @@ public class EngineRepository {
 
     }
 
+    public Boolean deleteEngine(Long id) {
+        String sql = "delete from vehicle.engine where engine_id = ?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setLong(1, id);
+            return ps;
+        });
+        try {
+            findById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return true;
+        }
+        return false;
+    }
+
     /*private EngineType getOrCreateEngineType(Engine engine) {
         EngineType engineType = engine.getEngineType();
         if (engineType.getEngineTypeTitle() != null) {

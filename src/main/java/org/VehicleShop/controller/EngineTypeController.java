@@ -31,8 +31,13 @@ public class EngineTypeController {
     }
 
     @PutMapping("/change/{id}")
-    public EngineType changeEngineType(@PathVariable Long id,@RequestBody EngineType engineType){
+    public EngineType changeEngineType(@PathVariable Long id, @RequestBody EngineType engineType) {
         engineType.setEngineTypeId(id);
         return engineTypeRepository.changeEngineType(engineType);
+    }
+
+    @DeleteMapping("/{id}")
+    public Boolean deleteEngineType(@PathVariable Long id) {
+        return engineTypeRepository.deleteEngineType(id);
     }
 }

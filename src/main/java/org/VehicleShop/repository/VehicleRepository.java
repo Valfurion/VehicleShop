@@ -5,6 +5,7 @@ import org.VehicleShop.entity.EngineType;
 import org.VehicleShop.entity.Vehicle;
 import org.VehicleShop.entity.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -71,6 +72,21 @@ public class VehicleRepository {
             return ps;
         });
         return findById(vehicle.getVehicleId());
+    }
+
+    public Boolean deleteVehicle(Long id) {
+        String sql = "delete from vehicle.vehicle where vehicle_id = ?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setLong(1, id);
+            return ps;
+        });
+        try {
+            findById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return true;
+        }
+        return false;
     }
 
 

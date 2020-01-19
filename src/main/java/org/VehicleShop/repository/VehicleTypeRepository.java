@@ -2,6 +2,7 @@ package org.VehicleShop.repository;
 
 import org.VehicleShop.entity.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -53,6 +54,21 @@ public class VehicleTypeRepository {
             return ps;
         });
         return findById(vehicleType.getVehicleTypeId());
+    }
+
+    public Boolean deleteVehicleType(Long id) {
+        String sql = "delete from vehicle.vehicle_type where vehicle_type_id = ?";
+        jdbcTemplate.update(psc -> {
+            PreparedStatement ps = psc.prepareStatement(sql);
+            ps.setLong(1, id);
+            return ps;
+        });
+        try {
+            findById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return true;
+        }
+        return false;
     }
 
 
