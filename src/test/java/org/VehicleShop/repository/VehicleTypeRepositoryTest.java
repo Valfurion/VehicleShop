@@ -1,6 +1,7 @@
 package org.VehicleShop.repository;
 
 import org.VehicleShop.entity.VehicleType;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Ignore("Изменяет состояние базы")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class VehicleTypeRepositoryTest {
